@@ -7,12 +7,12 @@
 ## TODO
 
 - 前端
-    - [ ] `login.html`
+    - [x] `login.html`
     - [ ] `index.html`
-    - [ ] `bootstrap/CSS/JS/JQuery`
-        - [ ] bootstrap 资源导入
-        - [ ] CSS 导入与添加
-        - [ ] JS 导入与添加
+    - [x] `bootstrap/CSS/JS/JQuery`
+        - [x] bootstrap 资源导入
+        - [x] CSS 导入与添加
+        - [x] JS 导入与添加
 - 后端
     - [ ] ORM Model
     - [x] login form
