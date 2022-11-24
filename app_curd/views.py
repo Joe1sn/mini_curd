@@ -1,11 +1,47 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger, InvalidPage
+from app_curd import models
+import time
+
+objs = []
+page_obj = []
+seconds = "NaN"
+counts = "NaN"
 
 @login_required(login_url='/login/')
 def index(request):
-    if request.method == 'GET':
-        return render(request,"index.html",{"objs":[],"seconds":"NaN","counts":"NaN"})
-    else:
+    global page_obj
+    global objs
+    global seconds
+    global counts
+    #传入搜索语句并返回搜索对象
+    if request.method == 'POST':
         query = request.POST.get("query")
-        print(query)
-        return render(request,"index.html",{"objs":[],"seconds":"NaN","counts":"NaN"})
+        seconds = time.perf_counter()   #--- start time ---
+
+        query = query.split(" ")
+        objs = models.obj.objects.all().order_by("id")
+
+        seconds = format((time.perf_counter() - seconds)*1000,".3f")    #--- end time ---
+        counts = models.obj.objects.count()
+        page = 1 #默认页数为1
+
+    # 使用request.GET.get()函数获取url中的page参数的数值。默认第1页
+    elif request.method == "GET":
+        page = request.GET.get('page')
+        # 生成Paginator对象对数据分页，每页显示x条数据
+    
+    #根据 `objs` 生成多页
+    paginator = Paginator(objs,5)
+
+    # 获取查询页数的接口数据列表，page()函数会判断page实参是否是有效数字
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except (EmptyPage, InvalidPage):
+        # 创建最终的page对象
+        page_obj = paginator.page(paginator.num_pages)
+
+    return render(request,"index.html",{"objs":page_obj, "seconds":seconds, "counts":counts})

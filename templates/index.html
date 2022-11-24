@@ -30,7 +30,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="">Mini CURD </a>
+          <a class="navbar-brand" href="">Mini CURD</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -52,16 +52,16 @@
         <div class="col-sm-3 col-md-2 sidebar">
             {% block active %}
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="">search</a></li>
+            <li style="font-size: 20px;color: #2aabd2" class="active"><a href="">search</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">add</a></li>
+            <li style="font-size: 20px;color: #2aabd2"><a href="">add</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">delete</a></li>
+            <li style="font-size: 20px;color: #2aabd2"><a href="">delete</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">update</a></li>
+            <li style="font-size: 20px;color: #2aabd2"><a href="">update</a></li>
           </ul>
             {% endblock %}
           
@@ -74,19 +74,20 @@
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-6 placeholder">
               <span class="text-muted">Finished in</span>
-              <h4>{{ seconds }}</h4>
+              <p style="font-family: 'JetBrains Mono';font-size: 80px">{{ seconds }}</p>
+              <span class="text-muted">ms</span>
             </div>
             <div class="col-xs-6 col-sm-6 placeholder">
               <span class="text-muted">Totoal Result</span>
-              <h4>{{ counts }}</h4>
+              <p style="font-family: 'JetBrains Mono';font-size: 80px">{{ counts }}</p>
             </div>
           </div>
           
             <div class="container" style="width: 30%;">
                 <form style="margin: autofocus" method="POST">
                     {% csrf_token %}
-                    <input type="text" name="query" class="form-control" placeholder="Search...">
-                    <button style="margin-left: 112px;margin-bottom: 10px;margin-top: 10px;max-width: 100px;" class="btn btn-primary btn-block" type="submit">查询</button>
+                    <input style="margin-top: 20px;margin-bottom: 20px;" type="text" name="query" class="form-control" placeholder="Search...">
+                    <button style="max-width: 100px; margin-left: auto; margin-right: auto" class="btn btn-primary btn-block" type="submit">Search</button>
                 </form>
             </div>
           <h2 class="sub-header">Details</h2>
@@ -99,6 +100,7 @@
                   <th>Gender</th>
                   <th>Brithday</th>
                   <th>ID number</th>
+                  <th>Photo</th>
                 </tr>
               </thead>
               <tbody>
@@ -106,13 +108,47 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ obj.name }}</td>
-                    <td>{{ obj.gender }}</td>
+                    {% if obj.gender %}
+                      <td>Male</td>
+                    {% else%}
+                      <td>Female</td>
+                    {% endif %}
                     <td>{{ obj.brithday }}</td>
                     <td>{{ obj.id_number }}</td>
+                    <td><img src="/static/imgs/{{ obj.id_number }}.jpg" width="60px"></td>
                 </tr>
                 {% endfor %}
               </tbody>
             </table>
+
+              <div class="container">
+                <ul class="pagination" id="pager">
+                    {# 上一页链接 #}
+                    {% if objs.has_previous %}
+                    <li class="previous"><a href="/index/?page={{ objs.previous_page_number }}">上一页</a></li>
+                    {% else %}
+                    <li class="previous disabled"><a href="#">Prev</a></li>
+                    {% endif %}
+            
+                    {# 中间数字显示 #}
+                    {%  for num in objs.paginator.page_range %}
+                        {%  if num == currentPage %}
+                            <li class="item active"><a href="/index/?page={{ num }}">{{ num }}</a></li>
+                        {% else %}
+                            <li class="item"><a href="/index/?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+            
+                    {# 下一页链接 #}
+                    {% if objs.has_next %}   {# 如果有下一页，则正常显示下一页链接 #}
+                        <li class="next"><a href="/index/?page={{ objs.next_page_number }}">Next</a></li>
+                    {% else %}
+                        <li class="next disabled"><a href="#">Next</a></li>
+                    {% endif %}
+            
+                </ul>
+            </div>
+          
           </div>
           {% endblock %}
         </div>

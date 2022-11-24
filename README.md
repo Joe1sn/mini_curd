@@ -4,6 +4,15 @@
 
 不采用前后端分离设计，数据库使用mysql
 
+## login
+
+![](docs\imgs\login.png)
+
+## index
+
+### search
+![](docs\imgs\index-search.png)
+
 ## TODO
 
 - 前端
@@ -16,10 +25,10 @@
 - 后端
     - [x] ORM Model
     - [x] login form
-    - **CURD**
+    - **CURDs**
         - [ ] Create
         - [ ] Update
-        - [ ] Read
+        - [x] Search
         - [ ] Delete
 - 文档
     - `login`
