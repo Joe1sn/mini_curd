@@ -21,6 +21,7 @@ from app_curd import views as curd_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', mini_views.login),
     path('login/', mini_views.login),
     path('logout/', mini_views.logout),
     path('index/', curd_views.index),

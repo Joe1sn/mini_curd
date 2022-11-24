@@ -22,6 +22,9 @@ from datetime import timedelta
 # 登陆页面 默认
 def login(request):
     if request.method == 'GET':
+        #已经登陆则重定向到index
+        if request.session.get("is_login") == True:
+            return redirect("/index/")
         form = curd_forms.login_form()
         return render(request, "login.html", {"form": form, "name":"Mini_CURD",})
     else :
@@ -34,6 +37,7 @@ def login(request):
             else:
                 # 校验成功，进入管理页面
                 auth.login(request, user)
+                request.session["is_login"]=True
                 path = request.GET.get("next") or "/index/"
                 if data["keeped"] == True: #延长过期时间
                     request.session.set_expiry(timedelta(days=3)) 
