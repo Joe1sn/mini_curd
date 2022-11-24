@@ -6,12 +6,12 @@
 
 ## login
 
-![](docs\imgs\login.png)
+![](./docs/imgs/login.png)
 
 ## index
 
 ### search
-![](docs\imgs\index-search.png)
+![](./docs/imgs/index-search.png)
 
 ## TODO
 
