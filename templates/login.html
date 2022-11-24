@@ -1,0 +1,40 @@
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+
+    <title>{{ name }}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/plugins/bootstrap-3.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/signin.css" rel="stylesheet">
+    <link href="/static/css/vague.css" rel="stylesheet">
+
+  </head>
+
+  <body background="https://s1.ax1x.com/2022/11/23/z8zsG6.jpg">
+
+    <div class="container">
+        <div class="nav">
+            <form action="" class="form-signin" method="post">
+              {% csrf_token %}
+                <h2 class="form-signin-heading" style="color: white;">管理登录</h2>
+                <label for="username" class="sr-only">Username</label>
+                <input type="text" name="username" class="form-control" placeholder="username" required autofocus>
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="keeped"> <p style="color: white;">记住</p>
+                </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+            </form>
+        </div>
+    </div>
+  </body>
+
+</html>
