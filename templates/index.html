@@ -125,7 +125,9 @@
                 <ul class="pagination" id="pager">
                     {# 上一页链接 #}
                     {% if objs.has_previous %}
-                    <li class="previous"><a href="/index/?page={{ objs.previous_page_number }}">上一页</a></li>
+                    <li class="previous"><a href="/index/?page={{ objs.previous_page_number }}" onclick>Prev</a></li>
+                    {% comment %} <li class="previous"><a href="javascript:void(0)">Prev</a></li> {% endcomment %}
+                    {% comment %} <li class="previous"><a href="javascript:void(0)" onclick="prev_page();">Prev</a></li> {% endcomment %}
                     {% else %}
                     <li class="previous disabled"><a href="#">Prev</a></li>
                     {% endif %}
@@ -159,8 +161,28 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/static/js/jquery-3.6.1.min.js" crossorigin="anonymous"></script>
-    <script src=""></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="/static/plugins/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    {% block js %}
+    <script type="text/javascript">
+      function prev_page(){
+        {% if objs.has_previous%}
+        var prev = {{ objs.previous_page_number }};
+        {% else %}
+        var prev = 1;
+        {% endif %}
+        console.log("test");
+        var res = $.ajax(
+          {
+            url: "/index/",
+            type: "get",
+            data: {
+              page: prev,
+            }
+          },)
+        {% comment %} $("#pager").html(res.responseText); {% endcomment %}
+      }
+    </script>
+    {% endblock%}
   </body>
 </html>

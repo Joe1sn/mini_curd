@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger, InvalidPage
 from app_curd import models
@@ -11,11 +11,16 @@ counts = "NaN"
 
 @login_required(login_url='/login/')
 def index(request):
-    global page_obj
-    global objs
+    # global page_obj
+    # global objs
     global seconds
     global counts
-    #传入搜索语句并返回搜索对象
+
+    query = ""
+    objs = models.obj.objects.all()
+    # seconds = "NaN"
+    # counts = "NaN"
+
     if request.method == 'POST':
         query = request.POST.get("query")
         seconds = time.perf_counter()   #--- start time ---
@@ -26,14 +31,22 @@ def index(request):
         seconds = format((time.perf_counter() - seconds)*1000,".3f")    #--- end time ---
         counts = models.obj.objects.count()
         page = 1 #默认页数为1
-
-    # 使用request.GET.get()函数获取url中的page参数的数值。默认第1页
-    elif request.method == "GET":
-        page = request.GET.get('page')
-        # 生成Paginator对象对数据分页，每页显示x条数据
     
+    #TODO
+    test = request.GET.get("test")
+
+    if test != None:
+        return HttpResponse("12321312")
+
+
     #根据 `objs` 生成多页
-    paginator = Paginator(objs,5)
+    # 使用request.GET.get()函数获取url中的page参数的数值。默认第1页
+    try:
+        page = request.GET.get('page')
+    except:
+        page = 1
+    # 生成Paginator对象对数据分页，每页显示x条数据
+    paginator = Paginator(objs,2)
 
     # 获取查询页数的接口数据列表，page()函数会判断page实参是否是有效数字
     try:

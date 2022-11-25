@@ -19,9 +19,6 @@
     - [x] `login.html`
     - [x] `index.html`
     - [x] `bootstrap/CSS/JS/JQuery`
-        - [x] bootstrap 资源导入
-        - [x] CSS 导入与添加
-        - [x] JS 导入与添加
 - 后端
     - [x] ORM Model
     - [x] login form
@@ -29,6 +26,7 @@
         - [ ] Create
         - [ ] Update
         - [x] Search
+          - [ ] Search 使用Jquery Ajax 局部刷新分页
         - [ ] Delete
 - 文档
     - `login`
@@ -41,7 +39,6 @@
             - 网页表头 `name`
         - 提交的参数 
             使用django form组件，位于 `app_curd\forms.py`中
-
 
     - `index` 
         - DTL相关
