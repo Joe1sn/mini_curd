@@ -25,8 +25,9 @@
     - **CURDs**
         - [ ] Create
         - [ ] Update
-        - [x] Search
-          - [ ] Search 使用Jquery Ajax 局部刷新分页
+        - [ ] Search (Doing)
+          - [x] Search 使用Jquery Ajax 局部刷新分页
+          - [ ] 模糊搜索算法 `app_curd\untils\fuzz_search.py`
         - [ ] Delete
 - 文档
     - `login`

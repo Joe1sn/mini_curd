@@ -90,99 +90,26 @@
                     <button style="max-width: 100px; margin-left: auto; margin-right: auto" class="btn btn-primary btn-block" type="submit">Search</button>
                 </form>
             </div>
-          <h2 class="sub-header">Details</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Gender</th>
-                  <th>Brithday</th>
-                  <th>ID number</th>
-                  <th>Photo</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for obj in objs %}   
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ obj.name }}</td>
-                    {% if obj.gender %}
-                      <td>Male</td>
-                    {% else%}
-                      <td>Female</td>
-                    {% endif %}
-                    <td>{{ obj.brithday }}</td>
-                    <td>{{ obj.id_number }}</td>
-                    <td><img src="/static/imgs/{{ obj.id_number }}.jpg" width="60px"></td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
 
-              <div class="container">
-                <ul class="pagination" id="pager">
-                    {# 上一页链接 #}
-                    {% if objs.has_previous %}
-                    <li class="previous"><a href="/index/?page={{ objs.previous_page_number }}" onclick>Prev</a></li>
-                    {% comment %} <li class="previous"><a href="javascript:void(0)">Prev</a></li> {% endcomment %}
-                    {% comment %} <li class="previous"><a href="javascript:void(0)" onclick="prev_page();">Prev</a></li> {% endcomment %}
-                    {% else %}
-                    <li class="previous disabled"><a href="#">Prev</a></li>
-                    {% endif %}
-            
-                    {# 中间数字显示 #}
-                    {%  for num in objs.paginator.page_range %}
-                        {%  if num == currentPage %}
-                            <li class="item active"><a href="/index/?page={{ num }}">{{ num }}</a></li>
-                        {% else %}
-                            <li class="item"><a href="/index/?page={{ num }}">{{ num }}</a></li>
-                        {% endif %}
-                    {% endfor %}
-            
-                    {# 下一页链接 #}
-                    {% if objs.has_next %}   {# 如果有下一页，则正常显示下一页链接 #}
-                        <li class="next"><a href="/index/?page={{ objs.next_page_number }}">Next</a></li>
-                    {% else %}
-                        <li class="next disabled"><a href="#">Next</a></li>
-                    {% endif %}
-            
-                </ul>
-            </div>
-          
+          <h2 class="sub-header">Details</h2>
+
+
+          <div id="lists" class="table-responsive">
+          {{ result_table|safe }}
           </div>
-          {% endblock %}
         </div>
+        {% endblock %}
       </div>
     </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/static/js/jquery-3.6.1.min.js" crossorigin="anonymous"></script>
+    {% comment %} <script src="/static/js/jquery-3.6.1.min.js" crossorigin="anonymous"></script> {% endcomment %}
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="/static/plugins/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     {% block js %}
-    <script type="text/javascript">
-      function prev_page(){
-        {% if objs.has_previous%}
-        var prev = {{ objs.previous_page_number }};
-        {% else %}
-        var prev = 1;
-        {% endif %}
-        console.log("test");
-        var res = $.ajax(
-          {
-            url: "/index/",
-            type: "get",
-            data: {
-              page: prev,
-            }
-          },)
-        {% comment %} $("#pager").html(res.responseText); {% endcomment %}
-      }
-    </script>
+    
     {% endblock%}
   </body>
 </html>

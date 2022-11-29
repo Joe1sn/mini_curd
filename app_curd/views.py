@@ -8,18 +8,14 @@ objs = []
 page_obj = []
 seconds = "NaN"
 counts = "NaN"
+page = 1
 
 @login_required(login_url='/login/')
 def index(request):
-    # global page_obj
-    # global objs
+    global page_obj
+    global objs
     global seconds
     global counts
-
-    query = ""
-    objs = models.obj.objects.all()
-    # seconds = "NaN"
-    # counts = "NaN"
 
     if request.method == 'POST':
         query = request.POST.get("query")
@@ -30,15 +26,13 @@ def index(request):
 
         seconds = format((time.perf_counter() - seconds)*1000,".3f")    #--- end time ---
         counts = models.obj.objects.count()
-        page = 1 #默认页数为1
-    
-    #TODO
-    test = request.GET.get("test")
 
-    if test != None:
-        return HttpResponse("12321312")
+    result_table = str(get_page(request=request).content,encoding="utf-8")
+    return render(request,"index.html",{"result_table":result_table, "seconds":seconds, "counts":counts})
 
-
+@login_required(login_url='/login/')
+def get_page(request):
+    global page_obj
     #根据 `objs` 生成多页
     # 使用request.GET.get()函数获取url中的page参数的数值。默认第1页
     try:
@@ -56,5 +50,4 @@ def index(request):
     except (EmptyPage, InvalidPage):
         # 创建最终的page对象
         page_obj = paginator.page(paginator.num_pages)
-
-    return render(request,"index.html",{"objs":page_obj, "seconds":seconds, "counts":counts})
+    return render(request,"get_page.html",{"objs":page_obj,})

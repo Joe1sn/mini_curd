@@ -1,0 +1,110 @@
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Brithday</th>
+        <th>ID number</th>
+        <th>Photo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for obj in objs %}   
+      <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ obj.name }}</td>
+          {% if obj.gender %}
+            <td>Male</td>
+          {% else%}
+            <td>Female</td>
+          {% endif %}
+          <td>{{ obj.brithday }}</td>
+          <td>{{ obj.id_number }}</td>
+          <td><img src="/static/imgs/{{ obj.id_number }}.jpg" width="60px"></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="container">
+    <ul class="pagination" id="pager">
+        {# 上一页链接 #}
+        {% if objs.has_previous %}
+        <li class="previous"><a href="javascript:void(0)" onclick="prev_page()">Prev</a></li>
+        {% else %}
+        <li class="previous disabled"><a href="#">Prev</a></li>
+        {% endif %}
+
+        {# 中间数字显示 #}
+        {%  for num in objs.paginator.page_range %}
+            {%  if num == objs.number %}
+                <li class="item active"><a value={{num}} id="page_"{{ num }} href="javascript:void(0)" onclick="cur_page(this)">{{ num }}</a></li>
+            {% else %}
+                <li class="item"><a value={{num}} id="page_{{num}}" href="javascript:void(0)" onclick="cur_page(this)">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {# 下一页链接 #}
+        {% if objs.has_next %}   {# 如果有下一页，则正常显示下一页链接 #}
+            <li class="next"><a href="javascript:void(0)" onclick="next_page()">Next</a></li>
+        {% else %}
+            <li class="next disabled"><a href="#">Next</a></li>
+        {% endif %}
+
+    </ul>
+  </div>
+  
+  <script src="/static/js/jquery-3.6.1.min.js" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+      prev_page = function(){
+        {% if objs.has_previous%}
+        var prev = {{ objs.previous_page_number }};
+        {% else %}
+        var prev = {{ objs.number }};
+        {% endif %}
+        $.ajax(
+          {
+            url: "/get_page/",
+            type: "get",
+            data: {
+              page: prev,
+            },
+            success:function(result){
+              $("#lists").html(result)
+            }
+          },)
+      }
+      cur_page = function(obj){
+        var page = obj.innerHTML
+        $.ajax(
+          {
+            url: "/get_page/",
+            type: "get",
+            data: {
+              page: page,
+            },
+            success:function(result){
+              $("#lists").html(result)
+            }
+          },)
+      }
+      next_page = function(){
+        {% if objs.has_next%}
+        var prev = {{ objs.next_page_number  }};
+        {% else %}
+        var prev = {{ objs.number }};
+        {% endif %}
+        $.ajax(
+          {
+            url: "/get_page/",
+            type: "get",
+            data: {
+              page: prev,
+            },
+            success:function(result){
+              $("#lists").html(result)
+            }
+          },)
+      }
+    </script>
