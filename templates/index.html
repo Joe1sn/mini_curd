@@ -69,33 +69,30 @@
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         {% block main_page %}
-          <h1 class="page-header">Result</h1>
+          <h1 class="page-header">Search</h1>
 
-          <div class="row placeholders">
+          <!--<div class="row placeholders">
             <div class="col-xs-6 col-sm-6 placeholder">
               <span class="text-muted">Finished in</span>
-              <p style="font-family: 'JetBrains Mono';font-size: 80px">{{ seconds }}</p>
+              <p style="font-family: 'JetBrains Mono';font-size: 80px" id="seconds">{{ seconds }}</p>
               <span class="text-muted">ms</span>
-            </div>
+            </div>  
             <div class="col-xs-6 col-sm-6 placeholder">
               <span class="text-muted">Totoal Result</span>
-              <p style="font-family: 'JetBrains Mono';font-size: 80px">{{ counts }}</p>
+              <p style="font-family: 'JetBrains Mono';font-size: 80px" id="counts">{{ counts }}</p>
             </div>
-          </div>
+          </div>-->
           
             <div class="container" style="width: 30%;">
-                <form style="margin: autofocus" method="POST">
-                    {% csrf_token %}
-                    <input style="margin-top: 20px;margin-bottom: 20px;" type="text" name="query" class="form-control" placeholder="Search...">
-                    <button style="max-width: 100px; margin-left: auto; margin-right: auto" class="btn btn-primary btn-block" type="submit">Search</button>
-                </form>
+                <input style="margin-top: 20px;margin-bottom: 20px;" type="text" id="query" class="form-control" placeholder="Search...">
+                <button style="max-width: 100px; margin-left: auto; margin-right: auto" class="btn btn-primary btn-block" type="submit" onclick="search();">Search</button>
             </div>
 
           <h2 class="sub-header">Details</h2>
 
 
           <div id="lists" class="table-responsive">
-          {{ result_table|safe }}
+            {{ result_table|safe }}
           </div>
         </div>
         {% endblock %}
@@ -109,7 +106,22 @@
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="/static/plugins/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     {% block js %}
-    
+    <script type="text/javascript">
+      search = function(){
+        $.ajax(
+          {
+            url: "/get_page/",
+            type: "get",
+            data: {
+              query: $("#query").val(),
+              page: 1,
+            },
+            success:function(result){
+              $("#lists").html(result)
+            }
+          },)
+      }
+    </script>
     {% endblock%}
   </body>
 </html>

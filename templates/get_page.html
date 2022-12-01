@@ -33,7 +33,7 @@
         {% if objs.has_previous %}
         <li class="previous"><a href="javascript:void(0)" onclick="prev_page()">Prev</a></li>
         {% else %}
-        <li class="previous disabled"><a href="#">Prev</a></li>
+        <li class="previous disabled"><a>Prev</a></li>
         {% endif %}
 
         {# 中间数字显示 #}
@@ -49,7 +49,7 @@
         {% if objs.has_next %}   {# 如果有下一页，则正常显示下一页链接 #}
             <li class="next"><a href="javascript:void(0)" onclick="next_page()">Next</a></li>
         {% else %}
-            <li class="next disabled"><a href="#">Next</a></li>
+            <li class="next disabled"><a>Next</a></li>
         {% endif %}
 
     </ul>
@@ -68,20 +68,22 @@
             url: "/get_page/",
             type: "get",
             data: {
+              query : $("#query").val(),
               page: prev,
             },
             success:function(result){
-              $("#lists").html(result)
+              $("#lists").html(result);
             }
           },)
       }
       cur_page = function(obj){
-        var page = obj.innerHTML
+        var page = obj.innerHTML;
         $.ajax(
           {
             url: "/get_page/",
             type: "get",
             data: {
+              query : $("#query").val(),
               page: page,
             },
             success:function(result){
@@ -91,19 +93,21 @@
       }
       next_page = function(){
         {% if objs.has_next%}
-        var prev = {{ objs.next_page_number  }};
+        var next = {{ objs.next_page_number  }};
         {% else %}
-        var prev = {{ objs.number }};
+        var next = {{ objs.number }};
         {% endif %}
         $.ajax(
           {
             url: "/get_page/",
             type: "get",
             data: {
-              page: prev,
+              query : $("#query").val(),
+              page: next,
             },
             success:function(result){
-              $("#lists").html(result)
+              $("#lists").html(result);
+              
             }
           },)
       }
