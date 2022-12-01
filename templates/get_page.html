@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for obj in objs %}   
+      {% for obj in objs %}
       <tr>
           <td>{{ forloop.counter }}</td>
           <td>{{ obj.name }}</td>
@@ -28,12 +28,18 @@
   </table>
 
   <div class="container">
+
     <ul class="pagination" id="pager">
         {# 上一页链接 #}
         {% if objs.has_previous %}
         <li class="previous"><a href="javascript:void(0)" onclick="prev_page()">Prev</a></li>
         {% else %}
         <li class="previous disabled"><a>Prev</a></li>
+        {% endif %}
+         
+        {% if objs.number > min_page and not_reach_max_flag %}
+        <li><a>...</a></li>
+        {% else %}
         {% endif %}
 
         {# 中间数字显示 #}
@@ -45,6 +51,11 @@
             {% endif %}
         {% endfor %}
 
+        {% if objs.number < max_page and not_reach_max_flag %}
+        <li><a>...</a></li>
+        {% else %}
+        {% endif %}        
+        
         {# 下一页链接 #}
         {% if objs.has_next %}   {# 如果有下一页，则正常显示下一页链接 #}
             <li class="next"><a href="javascript:void(0)" onclick="next_page()">Next</a></li>
