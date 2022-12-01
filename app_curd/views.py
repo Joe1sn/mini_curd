@@ -5,21 +5,14 @@ from app_curd import models
 from app_curd.utils.fuzz_search import search
 import time
 
-seconds = "NaN"
-counts = "NaN"
-
 @login_required(login_url='/login/')
 def index(request):
-    global seconds
-    global counts
     page = get_page(request=request)
     result_table = str(page.content,encoding="utf-8")
-    return render(request,"index.html",{"result_table":result_table, "seconds":seconds, "counts":counts})
+    return render(request,"index.html",{"result_table":result_table,})
 
 @login_required(login_url='/login/')
 def get_page(request):
-    global seconds
-    global counts
 
     try:
         query = request.GET.get('query')
@@ -33,14 +26,9 @@ def get_page(request):
     except:
         page = 1
     if query != None:
-        seconds = time.perf_counter()
         objs = search(query)    #查询
-        seconds = format((time.perf_counter() - seconds)*1000,".3f")    #--- end time ---
-        counts = objs.count()
     else:
         objs = []
-        seconds = "NaN"
-        counts = "NaN"
     # 生成Paginator对象对数据分页，每页显示x条数据
     paginator = Paginator(objs,1)
 
