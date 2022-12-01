@@ -36,8 +36,8 @@
         {% else %}
         <li class="previous disabled"><a>Prev</a></li>
         {% endif %}
-         
-        {% if objs.number > min_page and not_reach_max_flag %}
+        
+        {% if objs.number > min_page and not_reach_max %}
         <li><a>...</a></li>
         {% else %}
         {% endif %}
@@ -51,7 +51,7 @@
             {% endif %}
         {% endfor %}
 
-        {% if objs.number < max_page and not_reach_max_flag %}
+        {% if objs.number < max_page and not_reach_max %}
         <li><a>...</a></li>
         {% else %}
         {% endif %}        

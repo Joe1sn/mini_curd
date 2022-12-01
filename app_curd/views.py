@@ -28,8 +28,8 @@ def get_page(request):
     if page == None:
         page = "1"
     page_num = int(page)    #当前页数
-    pre_page = 3            #每页元素数目
-    slice_max = 5           #最大同时页数
+    pre_page = 5            #每页元素数目
+    slice_max = 3           #最大同时页数
     max_page = 1            #最大页数
     min_page = 1            #最小页数
     not_reach_max_flag = True  #同时页数是否超过最大页
@@ -38,7 +38,7 @@ def get_page(request):
     if query != None:
         objs = search(query)    #查询
         max_page = ceil(objs.count()/pre_page)
-        if slice_max > max_page:
+        if slice_max >= max_page:
             slice_max = max_page
             not_reach_max_flag = False
             paginator = Paginator(objs,pre_page)
@@ -64,10 +64,11 @@ def get_page(request):
     except (EmptyPage, InvalidPage):
         # 创建最终的page对象
         page_obj = paginator.page(paginator.num_pages)
-    print(page_obj.count)
+
+    print(not_reach_max_flag)
     return render(request,"get_page.html",{
         "objs":page_obj,
-        "max_page":max_page-ceil(slice_max/2),
-        "min_page":min_page+ceil(slice_max/2),
+        "max_page":max_page-int(slice_max/2),
+        "min_page":min_page+int(slice_max/2),
         "not_reach_max":not_reach_max_flag
     })

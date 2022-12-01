@@ -27,6 +27,7 @@
         - [ ] Update
         - [ ] Search (Doing)
           - [x] Search 使用Jquery Ajax 局部刷新分页
+          - [x] 搜索结果下标
           - [ ] 模糊搜索算法 `app_curd\untils\fuzz_search.py`
         - [ ] Delete
 - 文档
