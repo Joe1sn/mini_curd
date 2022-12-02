@@ -38,6 +38,7 @@ def get_page(request):
     if query != None:
         objs = search(query)    #查询
         max_page = ceil(objs.count()/pre_page)
+        # max_page = ceil(len(objs)/pre_page)
         if slice_max >= max_page:
             slice_max = max_page
             not_reach_max_flag = False
@@ -65,7 +66,6 @@ def get_page(request):
         # 创建最终的page对象
         page_obj = paginator.page(paginator.num_pages)
 
-    print(not_reach_max_flag)
     return render(request,"get_page.html",{
         "objs":page_obj,
         "max_page":max_page-int(slice_max/2),
