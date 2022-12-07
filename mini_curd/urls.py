@@ -24,8 +24,11 @@ urlpatterns = [
     path('', mini_views.login),
     path('login/', mini_views.login),
     path('logout/', mini_views.logout),
+
     path('index/', curd_views.index),
     path('get_page/', curd_views.get_page),
+    
+    path('add/', curd_views.add),
     
     # path('test/', mini_views.test),
 ]

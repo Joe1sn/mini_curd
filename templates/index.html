@@ -52,10 +52,10 @@
         <div class="col-sm-3 col-md-2 sidebar">
             {% block active %}
           <ul class="nav nav-sidebar">
-            <li style="font-size: 20px;color: #2aabd2" class="active"><a href="">search</a></li>
+            <li style="font-size: 20px;color: #2aabd2" class="active"><a href="/index/">search</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li style="font-size: 20px;color: #2aabd2"><a href="">add</a></li>
+            <li style="font-size: 20px;color: #2aabd2"><a href="/add/">add</a></li>
           </ul>
           <ul class="nav nav-sidebar">
             <li style="font-size: 20px;color: #2aabd2"><a href="">delete</a></li>
@@ -82,10 +82,14 @@
               <p style="font-family: 'JetBrains Mono';font-size: 80px" id="counts">{{ counts }}</p>
             </div>
           </div>-->
-          
+
             <div class="container" style="width: 30%;">
+              <div class="input-group">
                 <input style="margin-top: 20px;margin-bottom: 20px;" type="text" id="query" class="form-control" placeholder="Search...">
-                <button style="max-width: 100px; margin-left: auto; margin-right: auto" class="btn btn-primary btn-block" type="submit" onclick="search();">Search</button>
+                <span class="input-group-btn">
+                  <button style="max-width: 100px; margin-left: auto; margin-right: auto" class="btn btn-primary btn-block" type="submit" onclick="search();">Search</button>
+                </span>
+              </div>
             </div>
 
           <h2 class="sub-header">Details</h2>
@@ -98,6 +102,9 @@
         {% endblock %}
       </div>
     </div>
+
+    {% block msg %}
+    {% endblock %}
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

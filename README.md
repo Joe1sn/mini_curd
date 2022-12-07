@@ -24,6 +24,9 @@
     - [x] login form
     - **CURDs**
         - [ ] Create
+         - [x] 单个对象添加
+         - [ ] 头像上传
+         - [ ] excel批量上传
         - [ ] Update
         - [ ] Search (Doing)
           - [x] Search 使用Jquery Ajax 局部刷新分页

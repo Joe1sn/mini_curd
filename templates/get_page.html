@@ -31,9 +31,9 @@
     <ul class="pagination" id="pager">
         {# 上一页链接 #}
         {% if objs.has_previous %}
-        <li class="previous"><a href="javascript:void(0)" onclick="prev_page()">Prev</a></li>
+        <li class="previous"><span href="javascript:void(0)" onclick="prev_page()" aria-hidden="true">&laquo;</span></li>
         {% else %}
-        <li class="previous disabled"><a>Prev</a></li>
+        <li class="previous disabled"><span>&laquo;</span></li>
         {% endif %}
         
         {% if objs.number > min_page and not_reach_max %}
@@ -57,14 +57,15 @@
         
         {# 下一页链接 #}
         {% if objs.has_next %}   {# 如果有下一页，则正常显示下一页链接 #}
-            <li class="next"><a href="javascript:void(0)" onclick="next_page()">Next</a></li>
+            <li class="next"><span href="javascript:void(0)" onclick="next_page()" aria-hidden="true">&raquo;</span></li>
         {% else %}
-            <li class="next disabled"><a>Next</a></li>
+            <li class="next disabled"><span>&raquo;</span></li>
         {% endif %}
+        <li class="item"><a>A</a></li>
 
     </ul>
   </div>
-
+  
   <script src="/static/js/jquery-3.6.1.min.js" crossorigin="anonymous"></script>
   <script type="text/javascript">
       prev_page = function(){
