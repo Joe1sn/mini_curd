@@ -94,8 +94,8 @@ def add(request):
         id_number = request.POST.get("id_number")
         brithday = request.POST.get("brithday")
         gender = request.POST.get("gender")
-        print(name,id_number,brithday,gender)
-        print(type(name),type(id_number),type(brithday),type(gender))
+        # print(name,id_number,brithday,gender)
+        # print(type(name),type(id_number),type(brithday),type(gender))
         if name == "" or id_number == "" or len(id_number)!=13:
                 msg = error_msg
         else:

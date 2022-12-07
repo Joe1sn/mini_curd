@@ -16,5 +16,4 @@ def search(query):
                 Q(name__contains=query)|Q(gender__contains=query)|
                 Q(id_number=query)
             )
-        print(type(objs))
     return objs
