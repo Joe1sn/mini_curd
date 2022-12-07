@@ -13,6 +13,12 @@
 ### search
 ![](./docs/imgs/index-search.png)
 
+## add
+
+### singel add
+
+![](./docs/imgs/sigadd.png)
+
 ## TODO
 
 - 前端
