@@ -30,14 +30,14 @@
     - [x] login form
     - **CURDs**
         - [ ] Create
-         - [x] 单个对象添加
-         - [ ] 头像上传
-         - [ ] excel批量上传
+           - [x] 单个对象添加
+           - [ ] 头像上传
+           - [ ] excel批量上传
         - [ ] Update
-        - [ ] Search (Doing)
+        - [x] Search
           - [x] Search 使用Jquery Ajax 局部刷新分页
           - [x] 搜索结果下标
-          - [ ] 模糊搜索算法 `app_curd\untils\fuzz_search.py`
+          - [x] 模糊搜索算法 `app_curd\untils\fuzz_search.py`
         - [ ] Delete
 - 文档
     - `login`
@@ -53,11 +53,13 @@
 
     - `index` 
         - DTL相关
-            - 查询使用秒数 `seconds`
-            - 返回的结果总数 `counts`
             - 返回地对象 `objs`
         - 提交的参数
             - 模糊查询语句 `query`
+        
+    - `add`
+
+        按照对象属性添加
 
 
 - 数据库
