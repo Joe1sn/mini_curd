@@ -29,6 +29,7 @@ urlpatterns = [
     path('get_page/', curd_views.get_page),
     
     path('add/', curd_views.add),
+    path('delete/', curd_views.delete),
     
     # path('test/', mini_views.test),
 ]

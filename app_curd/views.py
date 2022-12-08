@@ -102,7 +102,7 @@ def add(request):
             if models.obj.objects.filter(id_number=id_number):
                 msg = warning_msg
             else:
-                from datetime import datetime,date,timedelta
+                from datetime import date,timedelta
                 if brithday != None:
                     brithday = brithday.split("-")
                     brithday = date(int(brithday[0]),int(brithday[1]),int(brithday[2]))
@@ -116,6 +116,40 @@ def add(request):
                         )
                         msg = ok_msg
     return render(request,"add.html",{"msg":msg})
+
+@login_required(login_url='/login/')
+def delete(request):
+    msg = ""
+    error_msg = '<div class="alert alert-danger" role="alert"><strong>Error!</strong> your input data is not legal</div>'
+    warning_msg = '<div class="alert alert-warning" role="alert"><strong>Warning!</strong>Not Birthday</div>'
+    ok_msg = '<div class="alert alert-success" role="alert"><strong>OK!</strong> add success</div>'
+
+    if request.method == "POST":
+        name = request.POST.get("name")
+        id_number = request.POST.get("id_number")
+        brithday = request.POST.get("brithday")
+        gender = request.POST.get("gender")
+        # print(name,id_number,brithday,gender)
+        # print(type(name),type(id_number),type(brithday),type(gender))
+        if name == "" and id_number == "" and len(id_number)!=13:
+                msg = error_msg
+        else:
+            if models.obj.objects.filter(id_number=id_number):
+                msg = warning_msg
+            else:
+                from datetime import date,timedelta
+                if brithday != "":
+                    brithday = brithday.split("-")
+                    brithday = date(int(brithday[0]),int(brithday[1]),int(brithday[2]))
+                    today = date.today()
+                    if brithday > today or today - brithday > timedelta(days=365*150):
+                        msg = error_msg
+                    else:
+                        msg = ok_msg
+                else:
+                    msg=warning_msg
+    return render(request,"delete.html",{"msg":msg})
+
 
 
 
