@@ -13,11 +13,11 @@ from app_curd import forms as curd_forms
 #timedelta
 from datetime import timedelta
 
-# def test(request):
-#     if request.method == 'GET':
-#         User.objects.create_superuser(username='admin',password=md5(b'joe1sn').hexdigest(),email="joe1sn@foxmail.com")
-#         print("created")
-#     return redirect("/login/")
+def test(request):
+    if request.method == 'GET':
+        User.objects.create_superuser(username='admin',password=md5(b'joe1sn').hexdigest(),email="joe1sn@foxmail.com")
+        print("created")
+    return redirect("/login/")
 
 # 登陆页面 默认
 def login(request):

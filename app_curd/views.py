@@ -5,6 +5,11 @@ from app_curd import models
 from app_curd.utils.fuzz_search import search
 from math import *
 
+# def test(request):
+#     from django.contrib.auth.models import User 
+#     User.objects.create_superuser(username='admin',password='joe1sn',email='joe1sn@foxmail.com')
+#     print("ok")
+
 
 #查询页面
 @login_required(login_url='/login/')
